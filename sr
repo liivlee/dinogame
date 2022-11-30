@@ -1,0 +1,27 @@
+import speech_recognition as sr
+import pydirectinput
+
+text = ""
+i = 0
+while i != 1:
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source, duration=1)
+        print("Listening...")
+        audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio)
+            if text == "up":
+                pydirectinput.press('up')
+            if text == "down":
+                pydirectinput.press('down')
+            print(text)
+        except:
+            print("inaudible")
+
+    # if text == "up":
+    #    pydirectinput.press('up')
+    # if text == "down":
+    #    pydirectinput.press('down')
+    if text == "stop":
+        quit()
